@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import {getAllPostsForHome} from "../lib/api";
 
 const Home: NextPage = () => {
   return (
@@ -67,6 +68,15 @@ const Home: NextPage = () => {
       </footer>
     </div>
   )
+}
+
+
+export const getServerSideProps = async () => {
+
+  const books = await getAllPostsForHome()
+  console.log({books});
+
+  return {props: {}}
 }
 
 export default Home
