@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import {getAllPostsForHome} from "../lib/api";
+import {getAllPostsForHome} from "../../lib/api";
 
 const Home: NextPage = () => {
   return <div>
