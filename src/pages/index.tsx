@@ -23,22 +23,22 @@ const Home: NextPage<Props> = ({ lists = [] }) => {
   console.log(lists);
 
   return (
-    <section className="flex flex-col items-center">
+    <section className="flex flex-col items-start max-w-5xl mx-auto">
       <h1 className="text-3xl font-bold">Home</h1>
       <div className="flex flex-col">
         {lists.map((list) => {
           return (
             !!list.books.length && (
-              <div key={list.title} className="flex flex-col items-center mt-24">
-                <h2 className="text-2xl font-bold">{list.title}</h2>
+              <div key={list.title} className="flex flex-col items-start mt-16">
+                <h2 className="text-2xl text-gray-200 font-bold my-8">{list.title}</h2>
                 <div className="flex flex-wrap">
                   {list.books.map((book) => {
                     return (
-                      <div key={book.slug} className="flex flex-col items-center">
-                        <h3 className="text-xl font-bold">{book.title}</h3>
-                        <div className="relative w-40 h-60">
-                          <Image src={book.image.url} alt={book.title} layout="fill" />
-                        </div>
+                      <div
+                        key={book.slug}
+                        className="relative w-48 h-72 rounded-md overflow-hidden mx-4"
+                      >
+                        <Image src={book.image.url} alt={book.title} layout="fill" />
                       </div>
                     );
                   })}
