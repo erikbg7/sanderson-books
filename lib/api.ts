@@ -1,4 +1,6 @@
-const fetchGraphQL = async(query: any, preview = false) =>{
+import { queries } from './queries';
+
+const fetchGraphQL = async (query: any, preview = false) => {
   return fetch(
     `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}`,
     {
@@ -9,24 +11,11 @@ const fetchGraphQL = async(query: any, preview = false) =>{
       },
       body: JSON.stringify({ query }),
     }
-  ).then((response) => response.json())
-}
+  ).then((response) => response.json());
+};
 
-
-export async function getAllPostsForHome() {
-  const entries = await fetchGraphQL(
-    `query {
-      bookCollection(preview: false) {
-        items {
-          title
-        }
-      }
-    }`,
-  )
-
+export async function getAllBooksImages() {
+  const entries = await fetchGraphQL(queries.ALL_BOOKS_IMAGES);
   const books = entries.data.bookCollection.items;
-  return books
+  return books;
 }
-
-
-
