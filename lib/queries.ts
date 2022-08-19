@@ -30,6 +30,7 @@ export const queries = {
         slug
         title
         summary
+        year
         description {
           json
           }
