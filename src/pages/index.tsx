@@ -20,7 +20,6 @@ type Props = {
 };
 
 const Home: NextPage<Props> = ({ lists = [] }) => {
-  console.log(lists);
 
   return (
     <section className="flex flex-col items-start max-w-5xl mx-auto">

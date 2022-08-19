@@ -40,7 +40,6 @@ const getAllBooksSlugs = async () => {
 
 const getBookBySlug = async (slug: string) => {
   const entries = await fetchGraphQL(queries.BOOK_BY_SLUG.replace('$slug', slug));
-  console.log({ entries });
   const book = entries.data.bookCollection.items[0];
   return book;
 };

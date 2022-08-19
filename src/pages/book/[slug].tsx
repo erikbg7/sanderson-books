@@ -7,7 +7,6 @@ type Props = {
 };
 
 const BookPage: NextPage<Props> = ({ book }) => {
-  console.log({ book });
   return <div>Book Page</div>;
 };
 
@@ -22,7 +21,6 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }: any) => {
   const { slug } = params;
-  console.log({ slug });
   const bookData = await getBookBySlug(slug);
 
   return {
