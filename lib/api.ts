@@ -32,4 +32,17 @@ const getBooksImagesBySaga = async (sagaTitle: string) => {
   return { books, title: sagaTitle };
 };
 
-export { getAllBooksImages, getAllSagas, getBooksImagesBySaga };
+const getAllBooksSlugs = async () => {
+  const entries = await fetchGraphQL(queries.ALL_BOOKS_SLUGS);
+  const slugs = entries.data.bookCollection.items;
+  return slugs;
+};
+
+const getBookBySlug = async (slug: string) => {
+  const entries = await fetchGraphQL(queries.BOOK_BY_SLUG.replace('$slug', slug));
+  console.log({ entries });
+  const book = entries.data.bookCollection.items[0];
+  return book;
+};
+
+export { getAllBooksImages, getAllSagas, getBooksImagesBySaga, getAllBooksSlugs, getBookBySlug };

@@ -23,11 +23,35 @@ export const queries = {
         }
       }
     }`,
+  BOOK_BY_SLUG: `
+    query {
+      bookCollection(where: {slug: "$slug" }) {
+      items {
+        slug
+        title
+        summary
+        description {
+          json
+          }
+        image {
+          url
+          }
+        }
+      }
+    }`,
   ALL_SAGAS: `
     query {
       sagaCollection {
         items {
           title
+        }
+      }
+    }`,
+  ALL_BOOKS_SLUGS: `
+    query {
+      bookCollection {
+        items {
+          slug
         }
       }
     }`,

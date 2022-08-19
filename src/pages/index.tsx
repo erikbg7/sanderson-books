@@ -52,14 +52,10 @@ const Home: NextPage<Props> = ({ lists = [] }) => {
   );
 };
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const sagas = await getAllSagas();
-
-  const imagesRequests = sagas.map(async ({ title }: { title: string }) =>
-    getBooksImagesBySaga(title)
-  );
-
-  const lists = await Promise.all(imagesRequests);
+  const requests = sagas.map(async ({ title }: { title: string }) => getBooksImagesBySaga(title));
+  const lists = await Promise.all(requests);
 
   return { props: { lists } };
 };
