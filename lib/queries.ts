@@ -14,28 +14,28 @@ export const queries = {
   BOOKS_IMAGES_BY_SAGA: `
     query {
       bookCollection(where: {saga: { title_contains: "$sagaTitle" }}) {
-      items {
-        slug
-        title
-        image {
-          url
+        items {
+          slug
+          title
+          image {
+            url
           }
-        }
+        }  
       }
     }`,
   BOOK_BY_SLUG: `
     query {
       bookCollection(where: {slug: "$slug" }) {
-      items {
-        slug
-        title
-        summary
-        year
-        description {
-          json
+        items {
+          slug
+          title
+          summary
+          year
+          description {
+            json
           }
-        image {
-          url
+          image {
+            url
           }
         }
       }
