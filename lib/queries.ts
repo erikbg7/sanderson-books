@@ -11,4 +11,24 @@ export const queries = {
         }
       }
     }`,
+  BOOKS_IMAGES_BY_SAGA: `
+    query {
+      bookCollection(where: {saga: { title_contains: "$sagaTitle" }}) {
+      items {
+        slug
+        title
+        image {
+          url
+          }
+        }
+      }
+    }`,
+  ALL_SAGAS: `
+    query {
+      sagaCollection {
+        items {
+          title
+        }
+      }
+    }`,
 };

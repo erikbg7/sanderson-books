@@ -14,8 +14,22 @@ const fetchGraphQL = async (query: any, preview = false) => {
   ).then((response) => response.json());
 };
 
-export async function getAllBooksImages() {
+const getAllBooksImages = async () => {
   const entries = await fetchGraphQL(queries.ALL_BOOKS_IMAGES);
   const books = entries.data.bookCollection.items;
   return books;
-}
+};
+
+const getAllSagas = async () => {
+  const entries = await fetchGraphQL(queries.ALL_SAGAS);
+  const sagas = entries.data.sagaCollection.items;
+  return sagas;
+};
+
+const getBooksImagesBySaga = async (sagaTitle: string) => {
+  const entries = await fetchGraphQL(queries.BOOKS_IMAGES_BY_SAGA.replace('$sagaTitle', sagaTitle));
+  const books = entries.data.bookCollection.items;
+  return { books, title: sagaTitle };
+};
+
+export { getAllBooksImages, getAllSagas, getBooksImagesBySaga };
