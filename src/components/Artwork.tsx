@@ -1,17 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-
-type Book = {
-  slug: string;
-  title: string;
-  year: number;
-  summary: string;
-  image: { url: string };
-};
+import type { BookArtwork } from '../../models';
 
 type Props = {
-  book: Book;
+  book: BookArtwork;
 };
 
 const Artwork: React.FC<Props> = ({ book }) => {

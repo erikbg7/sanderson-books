@@ -1,6 +1,6 @@
 import { queries } from './queries';
 
-const fetchGraphQL = async (query: any, preview = false) => {
+const fetchGraphQL = async (query: string, preview = false) => {
   return fetch(
     `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}`,
     {

@@ -1,22 +1,24 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { getAllBooksSlugs, getBookBySlug, getBooksImagesBySaga } from '../../../lib/api';
 import { Artwork } from '../../components/Artwork';
+import type { Block, Inline } from '@contentful/rich-text-types';
+import type { Book, BookList, BookSlug } from '../../../models';
 
 type Props = {
-  book: any;
-  recommendations: any[];
+  book: Book;
+  recommendations: Book[];
 };
 
 const options = {
   renderNode: {
-    [BLOCKS.HEADING_4]: (node: any, children: any) => (
+    [BLOCKS.HEADING_4]: (node: Block | Inline, children: ReactNode) => (
       <h4 className="text-2xl text-bold mt-4 mb-2">{children}</h4>
     ),
-    [BLOCKS.PARAGRAPH]: (node: any, children: any) => (
+    [BLOCKS.PARAGRAPH]: (node: Block | Inline, children: ReactNode) => (
       <p className="text-xl text-gray-300">{children}</p>
     ),
   },
@@ -58,23 +60,23 @@ const BookPage: NextPage<Props> = ({ book, recommendations }) => {
 };
 
 export const getStaticPaths = async () => {
-  const slugs = await getAllBooksSlugs();
+  const slugs: BookSlug[] = await getAllBooksSlugs();
 
   return {
-    paths: slugs.map(({ slug }: { slug: string }) => ({ params: { slug } })),
+    paths: slugs.map(({ slug }) => ({ params: { slug } })),
     fallback: false,
   };
 };
 
-export const getStaticProps = async ({ params }: any) => {
+export const getStaticProps = async ({ params }: { params: BookSlug }) => {
   const { slug } = params;
-  const bookData = await getBookBySlug(slug);
-  const recommendations = await getBooksImagesBySaga(bookData.saga.title);
+  const bookData: Book = await getBookBySlug(slug);
+  const recommendations: BookList = await getBooksImagesBySaga(bookData.saga.title);
 
   return {
     props: {
       book: bookData,
-      recommendations: recommendations.books.filter((book: any) => book.slug !== slug),
+      recommendations: recommendations.books.filter((book) => book.slug !== slug),
     },
   };
 };

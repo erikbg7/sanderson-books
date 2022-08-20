@@ -2,19 +2,7 @@ import React from 'react';
 import type { NextPage } from 'next';
 import { getAllSagas, getBooksImagesBySaga } from '../../lib/api';
 import { Artwork } from '../components/Artwork';
-
-type Book = {
-  slug: string;
-  title: string;
-  year: number;
-  summary: string;
-  image: { url: string };
-};
-
-type BookList = {
-  title: string;
-  books: Book[];
-};
+import type { BookList, BookSaga } from '../../models';
 
 type Props = {
   lists: BookList[];
@@ -45,11 +33,13 @@ const Home: NextPage<Props> = ({ lists = [] }) => {
 };
 
 export const getStaticProps = async () => {
-  const sagas = await getAllSagas();
-  const requests = sagas.map(async ({ title }: { title: string }) => getBooksImagesBySaga(title));
+  const sagas: BookSaga[] = await getAllSagas();
+  const requests = sagas.map(({ title }) => getBooksImagesBySaga(title));
   const lists = await Promise.all(requests);
 
-  return { props: { lists } };
+  return {
+    props: { lists },
+  };
 };
 
 export default Home;
