@@ -21,8 +21,6 @@ const options = {
 };
 
 const BookPage: NextPage<Props> = ({ book }) => {
-  console.log({ book });
-
   return (
     <div className="flex flex-col py-24 ">
       <div className="relative w-[70%] h-[40vh] rounded-md overflow-hidden mx-auto rounded-xl overflow-hidden">
@@ -32,12 +30,13 @@ const BookPage: NextPage<Props> = ({ book }) => {
         <div className="relative -top-24 w-60 h-80 rounded-md overflow-hidden mr-8">
           <Image src={book.image.url} alt={book.title} layout="fill" />
         </div>
-        <div className="flex-1 py-8">
-          <h1>
-            {book.title} - {book.year}
-          </h1>
-          <h2 className="text-lg font-semibold">{book.saga.title}</h2>
-          <p>{book.summary}</p>
+        <div className="flex-1 py-6">
+          <div className="flex items-center">
+            <h1 className="text-3xl text-gray-200 font-semibold">{book.title}</h1>
+            <span className="text-sm px-2 mx-6 bg-gray-600 rounded-md">{book.year}</span>
+          </div>
+          <h2 className="text-lg text-gray-400 font-semibold">{book.saga.title}</h2>
+          <p className="text-lg text-gray-300 mt-4">{book.summary}</p>
         </div>
       </div>
       <section className="max-w-6xl mx-auto">
