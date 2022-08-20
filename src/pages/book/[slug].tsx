@@ -1,10 +1,10 @@
 import React from 'react';
 import { NextPage } from 'next';
-import Link from 'next/link';
 import Image from 'next/image';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { getAllBooksSlugs, getBookBySlug, getBooksImagesBySaga } from '../../../lib/api';
+import { Artwork } from '../../components/Artwork';
 
 type Props = {
   book: any;
@@ -49,11 +49,7 @@ const BookPage: NextPage<Props> = ({ book, recommendations }) => {
         <h2 className="text-4xl mb-4 mt-8">Similar books</h2>
         <div className="flex">
           {recommendations.map((recommendation) => (
-            <Link key={recommendation.slug} href={`/book/${recommendation.slug}`}>
-              <a className="relative w-48 h-72 rounded-md overflow-hidden m-4 transition hover:scale-105 ">
-                <Image src={recommendation.image.url} alt={recommendation.title} layout="fill" />
-              </a>
-            </Link>
+            <Artwork key={recommendation.slug} book={recommendation} />
           ))}
         </div>
       </section>

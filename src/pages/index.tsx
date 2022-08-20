@@ -1,7 +1,7 @@
+import React from 'react';
 import type { NextPage } from 'next';
 import { getAllSagas, getBooksImagesBySaga } from '../../lib/api';
-import Image from 'next/image';
-import Link from 'next/link';
+import { Artwork } from '../components/Artwork';
 
 type Book = {
   slug: string;
@@ -31,15 +31,9 @@ const Home: NextPage<Props> = ({ lists = [] }) => {
               <div key={list.title} className="flex flex-col items-start mt-14">
                 <h2 className="text-2xl text-gray-200 font-bold my-3">{list.title}</h2>
                 <div className="flex flex-wrap">
-                  {list.books.map((book) => {
-                    return (
-                      <Link key={book.slug} href={`/book/${book.slug}`}>
-                        <a className="relative w-48 h-72 rounded-md overflow-hidden m-4 transition hover:scale-105 ">
-                          <Image src={book.image.url} alt={book.title} layout="fill" />
-                        </a>
-                      </Link>
-                    );
-                  })}
+                  {list.books.map((book) => (
+                    <Artwork key={book.slug} book={book} />
+                  ))}
                 </div>
               </div>
             )
