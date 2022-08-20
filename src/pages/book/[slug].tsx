@@ -1,12 +1,14 @@
 import React from 'react';
 import { NextPage } from 'next';
-import { getAllBooksSlugs, getBookBySlug } from '../../../lib/api';
+import Link from 'next/link';
 import Image from 'next/image';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import { getAllBooksSlugs, getBookBySlug, getBooksImagesBySaga } from '../../../lib/api';
 
 type Props = {
   book: any;
+  recommendations: any[];
 };
 
 const options = {
@@ -20,7 +22,7 @@ const options = {
   },
 };
 
-const BookPage: NextPage<Props> = ({ book }) => {
+const BookPage: NextPage<Props> = ({ book, recommendations }) => {
   return (
     <div className="flex flex-col py-24 ">
       <div className="relative w-[70%] h-[40vh] rounded-md overflow-hidden mx-auto rounded-xl overflow-hidden">
@@ -42,6 +44,19 @@ const BookPage: NextPage<Props> = ({ book }) => {
       <section className="max-w-6xl mx-auto">
         <div>{documentToReactComponents(book.description.json, options)}</div>
       </section>
+      <section className="flex flex-col w-[70%] mx-auto py-20">
+        <hr />
+        <h2 className="text-4xl mb-4 mt-8">Similar books</h2>
+        <div className="flex">
+          {recommendations.map((recommendation) => (
+            <Link key={recommendation.slug} href={`/book/${recommendation.slug}`}>
+              <a className="relative w-48 h-72 rounded-md overflow-hidden m-4 transition hover:scale-105 ">
+                <Image src={recommendation.image.url} alt={recommendation.title} layout="fill" />
+              </a>
+            </Link>
+          ))}
+        </div>
+      </section>
     </div>
   );
 };
@@ -58,10 +73,12 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params }: any) => {
   const { slug } = params;
   const bookData = await getBookBySlug(slug);
+  const recommendations = await getBooksImagesBySaga(bookData.saga.title);
 
   return {
     props: {
       book: bookData,
+      recommendations: recommendations.books.filter((book: any) => book.slug !== slug),
     },
   };
 };
