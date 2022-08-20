@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { getAllSagas, getBooksImagesBySaga } from '../../lib/api';
 import Image from 'next/image';
+import Link from 'next/link';
 
 type Book = {
   slug: string;
@@ -20,25 +21,23 @@ type Props = {
 };
 
 const Home: NextPage<Props> = ({ lists = [] }) => {
-
   return (
-    <section className="flex flex-col items-start max-w-5xl mx-auto">
+    <section className="flex flex-col items-start max-w-[80%] mx-auto">
       <h1 className="text-3xl font-bold">Home</h1>
       <div className="flex flex-col">
         {lists.map((list) => {
           return (
             !!list.books.length && (
               <div key={list.title} className="flex flex-col items-start mt-16">
-                <h2 className="text-2xl text-gray-200 font-bold my-8">{list.title}</h2>
+                <h2 className="text-2xl text-gray-200 font-bold my-6">{list.title}</h2>
                 <div className="flex flex-wrap">
                   {list.books.map((book) => {
                     return (
-                      <div
-                        key={book.slug}
-                        className="relative w-48 h-72 rounded-md overflow-hidden mx-4"
-                      >
-                        <Image src={book.image.url} alt={book.title} layout="fill" />
-                      </div>
+                      <Link key={book.slug} href={`/book/${book.slug}`}>
+                        <a className="relative w-48 h-72 rounded-md overflow-hidden m-4">
+                          <Image src={book.image.url} alt={book.title} layout="fill" />
+                        </a>
+                      </Link>
                     );
                   })}
                 </div>
