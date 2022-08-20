@@ -28,13 +28,13 @@ const Home: NextPage<Props> = ({ lists = [] }) => {
         {lists.map((list) => {
           return (
             !!list.books.length && (
-              <div key={list.title} className="flex flex-col items-start mt-16">
-                <h2 className="text-2xl text-gray-200 font-bold my-6">{list.title}</h2>
+              <div key={list.title} className="flex flex-col items-start mt-14">
+                <h2 className="text-2xl text-gray-200 font-bold my-3">{list.title}</h2>
                 <div className="flex flex-wrap">
                   {list.books.map((book) => {
                     return (
                       <Link key={book.slug} href={`/book/${book.slug}`}>
-                        <a className="relative w-48 h-72 rounded-md overflow-hidden m-4">
+                        <a className="relative w-48 h-72 rounded-md overflow-hidden m-4 transition hover:scale-105 ">
                           <Image src={book.image.url} alt={book.title} layout="fill" />
                         </a>
                       </Link>

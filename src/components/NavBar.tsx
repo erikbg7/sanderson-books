@@ -7,7 +7,7 @@ const NavBar = () => {
     <nav className="absolute right-0 left-0 px-3 py-2 bg-gray-800">
       <div className="flex justify-between items-center mx-auto md:w-[85%]">
         <div className="flex items-center">
-          <div className="relative my-1 mx-4 w-64 h-12 ">
+          <div className="relative my-1 mx-4 w-72 h-14 ">
             <Image alt="logo" sizes="50vw" src="/sanderson_logo.webp" layout="fill" />
           </div>
           {/*<Link href="/results">*/}

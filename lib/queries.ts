@@ -31,6 +31,12 @@ export const queries = {
           title
           summary
           year
+          saga {
+            title
+            image {
+              url
+            }
+          }
           description {
             json
           }
